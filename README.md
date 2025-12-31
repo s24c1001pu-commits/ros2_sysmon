@@ -6,11 +6,14 @@ CPU 使用率を定期的に取得し、ROS 2 トピックとして配信する�
 
 ビルド後、以下のコマンドでノードを起動します。
 
-$ ros2 run ros2_sysmon sysmon
+```bash
+source install/setup.bash
+ros2 run ros2_sysmon sysmon
+```
 
-CPU 使用率は `/sysmon` トピックに publish されます。
+状態情報は sysmon トピックに publish されます。
 
-$ ros2 topic echo /sysmon
+ros2 topic echo /sysmon
 
 ## Description
 
@@ -22,25 +25,26 @@ $ ros2 topic echo /sysmon
 
 | Topic name | Type | Description |
 |-----------|------|-------------|
-| `/sysmon` | `std_msgs/msg/Float32` | CPU usage (%) |
+| `sysmon` | `std_msgs/msg/Float32` | CPU usage (%) |
 
 ## Installation
 
 ワークスペースにパッケージを配置し、ビルドします。
 
-$ cd ~/ros2_ws/src
-$ git clone https://github.com/s24c1001pu-commits/ros2_sysmon.git
+cd ~/ros2_ws/src
+git clone https://github.com/s24c1001pu-commits/ros2_sysmon.git
+cd ~/ros2_ws
+colcon build
 
-$ cd ~/ros2_ws
-$ colcon build
-$ source install/setup.bash
 
 
 ## Implementation
 
-- Python (rclpy) により実装
-- `psutil` ライブラリを用いて CPU 使用率を取得
-- 取得間隔は `interval=0.1` 秒
+Python (rclpy) により実装
+
+/proc/stat, /proc/meminfo を利用
+
+CPU 使用率の計測間隔は interval = 0.1 秒
 
 ## License
 
@@ -53,4 +57,4 @@ This software is released under the BSD 3-Clause License.
 本パッケージは、講義  
 **「ロボットシステム学 2025」**  
 における ROS 2 の学習内容を参考にして作成しました。
-
+README.mdREADME.md
