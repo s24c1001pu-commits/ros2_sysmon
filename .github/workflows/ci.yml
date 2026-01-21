@@ -15,9 +15,6 @@ jobs:
         with:
           required-ros-distributions: humble
 
-      - name: Update apt
-        run: sudo apt update
-
       - name: Build
         run: |
           source /opt/ros/humble/setup.bash
