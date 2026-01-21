@@ -1,0 +1,32 @@
+name: ROS 2 CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup ROS 2
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          ros-distro: humble
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y python3-colcon-common-extensions
+
+      - name: Build
+        run: |
+          colcon build
+
+      - name: Test
+        run: |
+          colcon test
+          colcon test-result --verbose
+
